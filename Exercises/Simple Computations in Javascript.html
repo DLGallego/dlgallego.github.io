@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Simple Computations in Javascript</h1>
+    <br>
+    <h2>Converting temperature and distance</h2>
+
+    <p>
+        <label for="type" id="conversion">Choose conversion type:</label>
+        <select name="type" id="type" onchange="change()">
+            <option value="ftoc">F to C</option>
+            <option value="ctof">C to F</option>
+            <option value="mtoft">Meters to Feet</option>
+            <option value="fttom">Feet to Meters</option>
+        </select>
+    </p>
+
+    <p>
+        <label for="number" id="input">Input number to convert:</label>
+        <input id="no" name="no" type="number">
+        
+        <label for="m1" id="measure1">F</label>
+        
+        <label for="val" id="value"> = </label>
+        <input id="val" name="val" type="number" readonly></input>
+
+        <label for="m2" id="measure2">C</label>
+
+        <button onclick="compute()">Compute</button>
+    </p>
+
+    <p>
+        <a href="index.html">Back to Home Page</a>
+    </p>
+
+    <script>
+        function compute() {
+            var x = document.getElementById("no").value*1;
+            var type = document.getElementById("type");
+            var convert = type.options[type.selectedIndex].value;
+
+            if (convert == "ftoc") {
+                let y = (x-32)*(5/9);
+
+                document.getElementById("val").value=y;
+            }
+
+            else if (convert == "ctof") {
+                let y = x*(9/5)+32;
+
+                document.getElementById("val").value=y;
+            }
+
+            else if (convert == "mtoft") {
+                let y = x*3.28084
+
+                document.getElementById("val").value=y;
+            }
+
+            else if (convert == "fttom") {
+                let y = x/3.28084
+
+                document.getElementById("val").value=y;
+            }
+        }
+
+        function change() {
+            var type = document.getElementById("type");
+            var convert = type.options[type.selectedIndex].value;
+
+            if (convert == "ftoc") {
+                document.getElementById("measure1").innerHTML='F';
+                document.getElementById("measure2").innerHTML='C';
+            }
+
+            else if (convert == "ctof") {
+                document.getElementById("measure1").innerHTML='C';
+                document.getElementById("measure2").innerHTML='F';
+            }
+
+            else if (convert == "mtoft") {
+                document.getElementById("measure1").innerHTML='M';
+                document.getElementById("measure2").innerHTML='Ft';
+            }
+
+            else if (convert == "fttom") {
+                document.getElementById("measure1").innerHTML='Ft';
+                document.getElementById("measure2").innerHTML='M';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

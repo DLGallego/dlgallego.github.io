@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h1>Income Tax Calculator</h1>
+
+    <p>
+        <label for="ncm" id="Income">Input Income:</label>
+        <input id="n1" name="n1" type="number"></input>
+
+        <button onclick="compute()">Compute</button>
+    </p>
+
+    <p>
+        <label for="ncm" id="Income">Income Tax = Php </label>
+        <input id="n2" name="n2" type="number" readonly></input>
+    </p>
+
+    <br>
+
+    <h2>How to Compute Income Tax:</h2>
+    <img src="Table.png" alt="Income Tax Reference" width="640" height="400">
+    
+    <p>
+        <a href="index.html">Back to Home Page</a>
+    </p>
+
+    <script>
+        function compute() {
+            var x = document.getElementById("n1").value*1;
+
+            if (x <= 250000) {
+                let y = 0;
+
+                document.getElementById("n2").value=y;
+            }
+
+            else if (x > 250000 && x <= 400000) {
+                let y = (x- 250000) * 0.2;
+
+                document.getElementById("n2").value=y;
+            }
+
+            else if (x > 400000 && x <= 800000) {
+                let y = ((x - 400000) * 0.25) + 30000;
+
+                document.getElementById("n2").value=y;
+            }
+
+            else if (x > 800000 && x <= 2000000) {
+                let y = ((x - 800000) * 0.3) + 130000;
+
+                document.getElementById("n2").value=y;
+            }
+
+            else if (x > 2000000 && x <= 8000000) {
+                let y = ((x - 2000000) * 0.32) + 490000;
+
+                document.getElementById("n2").value=y;
+            }
+
+            else if (x > 8000000) {
+                let y = ((x - 8000000) * 0.35) + 2410000;
+
+                document.getElementById("n2").value=y;
+            }
+        }
+    </script>
+
+</body>
+</html>

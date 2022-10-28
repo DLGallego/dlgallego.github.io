@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #roll {
+          font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        #roll td, #roll th, #roll tr {
+          border: 1px solid rgb(0, 0, 0);
+          padding: 8px;
+        }
+        
+        #roll tr:nth-child(even){background-color: #f2f2f2;}
+        #roll tr:nth-child(odd){background-color: #bfddf1;}
+        
+        #roll th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: left;
+          background-color: #12005b;
+          color: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+
+<body onload="initroll()">
+
+    <h1>Simple Payroll</h1>
+
+    <p>
+        <label for="emp" id="name">Employee's Name: </label>
+        <input id="emp" name="emp" type="text"></input>
+
+        <label for="days" id="dwork">Days Worked: </label>
+        <input id="days" name="days" type="number"></input>
+
+        <label for="rate" id="drate">Daily Rate: </label>
+        <input id="rate" name="rate" type="number"></input>
+
+        <label for="ded" id="dedam">Deduction Amount: </label>
+        <input id="ded" name="ded" type="number"></input>
+
+        <button onclick="addtoroll()">Add to Payroll</button>
+    </p>
+
+    <p>
+        <label for="eno" id="no">No. of Employees</label>
+        <input id="eno" name="eno" type="number" readonly></input>
+
+        <button onclick="clearroll()">Clear Payroll</button>
+
+        <label for="del" id="dlabel">Remove Employee No.: </label>
+        <input id="del" name="del" type="number"></input>
+
+        <button onclick="removeline()">Remove</button>
+    </p>
+
+    <p id="roll"></p>
+
+    <p>
+        <a href="index.html">Back to Home Page</a>
+    </p>
+
+    <script>
+        // Initialize payroll      
+        function initroll(){
+            roll=[];
+            document.getElementById("eno").value=roll.length;
+            document.getElementById("roll").innerHTML="";    
+        }
+
+        // Clear Cart
+        function clearroll(){
+            var toclear;
+
+            toclear=confirm("Delete all item(s) from payroll?");
+
+            if (toclear) {
+                initroll();
+            }   
+        }
+
+        // Delete item from chart
+        function removeline(){
+            var todelete;
+            var itemno;
+
+            itemno=document.getElementById("del").value;
+
+            todelete=confirm("Delete item no. "+itemno+"?");
+
+            if (todelete) {
+                roll.splice(itemno-1,1);
+                document.getElementById("eno").value=roll.length;
+                
+                showroll();   
+            }
+        }
+
+        function GP(){
+            var dw = document.getElementById("days").value*1;
+            var dr = document.getElementById("rate").value*1;
+
+            var grp = dw * dr
+
+            return grp;
+        }
+
+        function NP(){
+            var gpy = GP();
+            var da = document.getElementById("ded").value*1;
+
+            var ntp = gpy - da
+
+            return ntp;
+        }
+
+        // Add item to roll
+        function addtoroll(){
+         
+            var rollitem = {
+                "name": "1",
+                "days": 0,
+                "drate": 0,
+                "gp" : 0,
+                "dedam": 0,
+                "np" : 0,
+            };
+
+            rollitem.name=document.getElementById("emp").value;
+            rollitem.days=document.getElementById("days").value;
+            rollitem.drate=document.getElementById("rate").value;
+            rollitem.gp=GP();
+            rollitem.dedam=document.getElementById("ded").value;
+            rollitem.np=NP();
+            
+
+            console.log(rollitem.name);
+            console.log(rollitem.days);
+            console.log(rollitem.drate);
+            console.log(rollitem.gp);
+            console.log(rollitem.dedam);
+            console.log(rollitem.np);
+
+            roll.push(rollitem);
+            //roll[roll.length]=rollitem;
+
+            console.log(roll.length);
+            document.getElementById("eno").value=roll.length;
+
+            showroll();
+        }
+
+        // Show the contents of the cart
+        function showroll(){
+
+            var i,l,rolltext,ln;
+            var theader,tbody,tb;
+
+            // Generate table header;
+            theader ="<thead>";
+            theader+="<tr>";
+            theader+="<th>Employee No.</th>";
+            theader+='<th>Employee Name</th>';
+            theader+="<th>Days Worked</th>";
+            theader+='<th>Daily Rate</th>';
+            theader+="<th>Gross Pay</th>";
+            theader+="<th>Deduction Amount</th>";
+            theader+="<th>Net Pay</th>";
+            theader+="</tr>";
+            theader+="</thead>";
+
+            // Generate Table Body
+            l = roll.length;
+
+            for (i=0,rolltext="",tbody='';i<l;i++){
+                ln=i+1;    
+                tbody += "<tr>"
+                    +'<td>'+ln+'</td>'
+                    +'<td style="text-align:center">'+roll[i].name+' </td>'
+                    +'<td style="text-align:center">'+roll[i].days+'</td>'
+                    +'<td style="text-align:right">'+roll[i].drate+'</td>'
+                    +'<td style="text-align:right">'+roll[i].gp+'</td>'
+                    +'<td style="text-align:right">'+roll[i].dedam+'</td>' 
+                    +'<td style="text-align:right">'+roll[i].np+'</td>'                 
+                    +"</tr>";
+            }
+
+            //tbody += "</tbody>";
+
+            console.log(theader+tbody);
+            document.getElementById("roll").innerHTML="<table>"+theader+tbody+"</table>";
+        }
+
+    //Global Variable
+    var roll = [];
+
+    </script>
+
+</body>
+
+</html>

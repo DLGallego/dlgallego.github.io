@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h1>Nth Factorial, Sum and Average</h1>
+
+    <h2>Calculate the Factorial, Sum and Average for the Number n</h2>
+
+    <p>
+        <label for="no" id="numberlabel">Input a Number: </label>
+        <input id="n1" name="n1" type="number"></input>
+
+        <button onclick="compute()">Show Results</button>
+    </p>
+
+    <p>
+        <label for="fc" id="fclabel">The factorial of n is: </label>
+        <input id="fc" name="fc" type="number" readonly></input>
+    </p>
+
+    <p>
+        <label for="sum" id="sumlabel">The sum of numbers from 0 to n is: </label>
+        <input id="sum" name="sum" type="number" readonly></input>
+    </p>
+
+    <p>
+        <label for="av" id="avlabel">The average of the first n numbers is: </label>
+        <input id="av" name="av" type="number" readonly></input>
+    </p>
+
+    <p>
+        <a href="index.html">Back to Home Page</a>
+    </p>
+
+    <script>
+        function compute() {
+            var n = document.getElementById("n1").value*1;
+            var counter1 = n; 
+            var counter2 = 1;
+            var multiplier;
+            var adder;
+            var x = n;
+            var y = 1;
+            var z = 1;
+
+            //Factorial Loop
+
+            while (counter1 > 1){
+                multiplier = counter1 - 1;
+                x = x * multiplier;
+
+                counter1--;
+            }
+
+            document.getElementById("fc").value=x;
+            document.getElementById("fclabel").innerHTML="The factorial of "+n+" is: ";
+
+            //Sum Loop
+
+            do {
+                adder = counter2 + 1;
+                y = y + adder;
+
+                counter2 = counter2 + 1;
+            }
+            while(counter2 < n);
+
+            document.getElementById("sum").value=y;
+            document.getElementById("sumlabel").innerHTML="The sum of numbers from 0 to "+n+" is: ";
+
+            //Average Loop
+
+            for (let c3 = 1; c3 < n; c3++) {
+                adder = c3 + 1;
+                z = z + adder;
+            }
+
+            z = z/n
+            
+            document.getElementById("av").value=z;
+            document.getElementById("avlabel").innerHTML="The average of the first "+n+" numbers is: ";
+        }
+
+    </script>
+
+</body>
+
+</html>
